@@ -9,8 +9,9 @@ per-post prices and trace pipeline back to each post.
 ## Stack
 - Next.js 16 (App Router, Turbopack) + TypeScript
 - Tailwind CSS v4 + custom design tokens (`globals.css`)
-- Client-side auth & state via localStorage (no backend keys): `naano_users`,
-  `naano_current_user`, `naano_campaigns`
+- Neon Postgres + Drizzle ORM (migrations in `lib/db/migrations`)
+- Server Actions + DB sessions (bcryptjs, SHA-256 session tokens in an
+  httpOnly cookie) — no client-side auth state
 - Fonts: Inter + Plus Jakarta Sans via `next/font`
 
 ## Routes
@@ -29,10 +30,17 @@ Dashboard (role-aware): `/dashboard`, `/marketplace`, `/marketplace/[id]`,
 Agents: `/llms.txt`, `/pricing.md`, `/robots.txt`, `/sitemap.xml`.
 
 ## Getting Started
+Set `DATABASE_URL` (a Neon Postgres connection string) in `.env.local`, then:
+
 ```bash
 npm install
+npx drizzle-kit push      # apply schema/migrations
+npx tsx lib/db/seed.ts    # seed marketplace + demo users
 npm run dev
 ```
+
+Demo accounts (after seeding): `brand@naano.com` and `creator@naano.com`,
+both with password `Naano-demo-2026!`.
 
 Build & preview:
 ```bash

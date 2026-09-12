@@ -1,0 +1,1 @@
+ALTER TYPE "public"."creator_state" ADD VALUE 'declined';

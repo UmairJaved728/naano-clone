@@ -1,16 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Avatar from "@/components/Avatar";
-import { marketplaceCreators, formatEuro } from "@/lib/data";
-import { storeCampaign } from "@/lib/campaignStore";
+import { formatEuro } from "@/lib/data";
+import { createCampaign } from "@/lib/actions";
+import type { MarketplaceCreatorDto } from "@/lib/dto";
 
 type Step = 1 | 2 | 3;
 
-export default function NewCampaign() {
+export default function NewCampaign({ creators }: { creators: MarketplaceCreatorDto[] }) {
   const router = useRouter();
+  const [pending, startTransition] = useTransition();
   const [step, setStep] = useState<Step>(1);
   const [prefill, setPrefill] = useState<string | null>(null);
 
@@ -46,7 +48,7 @@ export default function NewCampaign() {
     }
   }, []);
 
-  const selectedCreators = marketplaceCreators.filter((c) => selected.has(c.id));
+  const selectedCreators = creators.filter((c) => selected.has(c.id));
   const totalCost = selectedCreators.reduce((sum, c) => sum + c.price, 0);
 
   const generateBrief = () => {
@@ -77,26 +79,27 @@ export default function NewCampaign() {
   const trackLink = `https://${(name || "campaign").toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 20)}.demo?utm_source=naano&utm_campaign=${encodeURIComponent(name || "campaign")}`;
 
   const launch = () => {
-    storeCampaign({
-      id: `cmp-${Date.now()}`,
-      name,
-      status: "briefing",
-      objective,
-      budget,
-      startDate: startDate || new Date().toISOString().slice(0, 10),
-      endDate: endDate || new Date(Date.now() + 30 * 864e5).toISOString().slice(0, 10),
-      keywords: keywords.split(",").map((k) => k.trim()).filter(Boolean),
-      trackingLink: trackLink,
-      creators: [...selected].map((id) => ({ creatorId: id, state: "invited" })),
-      createdAt: new Date().toISOString(),
+    startTransition(async () => {
+      const campaignId = await createCampaign({
+        name: name.trim(),
+        objective: objective.trim(),
+        audience: keywords.split(",").map((k) => k.trim()).filter(Boolean).join(", ") || "B2B SaaS decision makers",
+        budget,
+        topic: keywords.split(",")[0]?.trim() || "creator-led growth",
+        trackingLink: trackLink,
+        brief: objective.trim(),
+        keyMessages: briefKeyMessages,
+        guidelines: briefGuidelines.join("\n"),
+        creators: [...selected].map((id) => ({ creatorId: id, percent: 0 })),
+      });
+      router.push(`/dashboard/campaigns/${campaignId}`);
     });
-    router.push("/dashboard/campaigns");
   };
 
   return (
     <div className="mx-auto max-w-5xl">
       <Link href="/dashboard/campaigns" className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink">
-        ← Campaigns
+        &larr; Campaigns
       </Link>
 
       {/* Stepper */}
@@ -200,7 +203,7 @@ export default function NewCampaign() {
 
           <div className="mt-8 flex justify-end">
             <button disabled={!canContinue} onClick={() => setStep(2)} className="btn-primary px-7 py-3 font-semibold disabled:opacity-40">
-              Continue to AI brief →
+              Continue to AI brief &rarr;
             </button>
           </div>
         </div>
@@ -283,10 +286,10 @@ export default function NewCampaign() {
 
           <div className="flex justify-between">
             <button onClick={() => setStep(1)} className="btn-light px-6 py-3 font-medium">
-              ← Back
+              &larr; Back
             </button>
             <button disabled={!canContinue} onClick={() => setStep(3)} className="btn-primary px-7 py-3 font-semibold disabled:opacity-40">
-              Choose creators →
+              Choose creators &rarr;
             </button>
           </div>
         </div>
@@ -301,67 +304,70 @@ export default function NewCampaign() {
                 {selected.size} creator{selected.size === 1 ? "" : "s"} selected
               </p>
               <p className="text-xs text-muted">
-                {formatEuro(totalCost)} estimated · within {formatEuro(budget)} budget
+                {formatEuro(totalCost)} estimated AOV within {formatEuro(budget)} budget
               </p>
             </div>
-            <button disabled={!canContinue} onClick={launch} className="btn-primary px-7 py-3 font-semibold disabled:opacity-40">
-              Launch campaign →
+            <button disabled={!canContinue || pending} onClick={launch} className="btn-primary px-7 py-3 font-semibold disabled:opacity-40">
+              {pending ? "Launching…" : "Launch campaign &rarr;"}
             </button>
           </div>
 
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            {marketplaceCreators
-              .filter((c) => c.status === "active")
-              .map((c) => {
-                const isOn = selected.has(c.id);
-                return (
-                  <button
-                    key={c.id}
-                    onClick={() =>
-                      setSelected((prev) => {
-                        const next = new Set(prev);
-                        if (next.has(c.id)) next.delete(c.id);
-                        else next.add(c.id);
-                        return next;
-                      })
-                    }
-                    className={`card flex items-center gap-4 p-4 text-left transition-all ${
-                      isOn ? "border-ink ring-1 ring-ink" : "hover:border-ink/30"
-                    } ${prefill === c.id && isOn ? "ring-2 ring-accent" : ""}`}
-                  >
-                    <Avatar name={c.name} color={c.color} />
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate font-semibold text-ink">{c.name}</p>
-                      <p className="truncate text-xs text-muted">{c.headline}</p>
-                      <div className="mt-1.5 flex gap-1.5">
-                        <span className="rounded-md bg-emerald-50 px-1.5 py-0.5 text-[11px] font-bold text-emerald-700">Fit {c.fit}%</span>
-                        <span className="rounded-md bg-canvas px-1.5 py-0.5 text-[11px] font-medium text-muted">
-                          {c.networks.join(" · ")}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-display text-base font-bold text-ink">{formatEuro(c.price)}</p>
-                      <p className="text-[11px] text-muted">/ post</p>
-                      <span
-                        className={`mt-1 inline-grid size-6 place-items-center rounded-full border text-xs font-bold ${
-                          isOn ? "border-ink bg-ink text-white" : "border-line text-transparent"
-                        }`}
-                      >
-                        ✓
+            {creators.map((c) => {
+              const isOn = selected.has(c.id);
+              return (
+                <button
+                  key={c.id}
+                  onClick={() =>
+                    setSelected((prev) => {
+                      const next = new Set(prev);
+                      if (next.has(c.id)) next.delete(c.id);
+                      else next.add(c.id);
+                      return next;
+                    })
+                  }
+                  className={`card flex items-center gap-4 p-4 text-left transition-all ${
+                    isOn ? "border-ink ring-1 ring-ink" : "hover:border-ink/30"
+                  } ${prefill === c.id && isOn ? "ring-2 ring-accent" : ""}`}
+                >
+                  <Avatar name={c.name} color={c.color} />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate font-semibold text-ink">{c.name}</p>
+                    <p className="truncate text-xs text-muted">{c.headline}</p>
+                    <div className="mt-1.5 flex gap-1.5">
+                      <span className="rounded-md bg-emerald-50 px-1.5 py-0.5 text-[11px] font-bold text-emerald-700">Fit {c.fit}%</span>
+                      <span className="rounded-md bg-canvas px-1.5 py-0.5 text-[11px] font-medium text-muted">
+                        {c.networks.join(" · ")}
                       </span>
                     </div>
-                  </button>
-                );
-              })}
+                  </div>
+                  <div className="text-right">
+                    <p className="font-display text-base font-bold text-ink">{formatEuro(c.price)}</p>
+                    <p className="text-[11px] text-muted">/ post</p>
+                    <span
+                      className={`mt-1 inline-grid size-6 place-items-center rounded-full border text-xs font-bold ${
+                        isOn ? "border-ink bg-ink text-white" : "border-line text-transparent"
+                      }`}
+                    >
+                      ✓
+                    </span>
+                  </div>
+                </button>
+              );
+            })}
           </div>
 
           <div className="flex justify-between">
             <button onClick={() => setStep(2)} className="btn-light px-6 py-3 font-medium">
-              ← Back to brief
+              &larr; Back to brief
             </button>
           </div>
         </div>
+      )}
+      {startDate && endDate && (
+        <p className="mt-6 text-center text-xs text-muted">
+          Campaign window {startDate} → {endDate}
+        </p>
       )}
     </div>
   );

@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
-import type { User } from "@/lib/auth";
+import { logout } from "@/app/actions/auth";
+import type { SessionUserDto } from "@/lib/dto";
 
 export interface NavItem {
   label: string;
@@ -60,38 +60,9 @@ const icons = {
   ),
 };
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
+export default function DashboardLayout({ user, children }: { user: SessionUserDto; children: React.ReactNode }) {
   const pathname = usePathname();
-  const [session, setSession] = useState<User | null>(null);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    const raw = localStorage.getItem("naano_current_user");
-    if (!raw) {
-      router.replace("/login");
-      return;
-    }
-    try {
-      setSession(JSON.parse(raw));
-    } catch {
-      router.replace("/login");
-    }
-    setReady(true);
-  }, [router]);
-
-  if (!ready || !session) {
-    return (
-      <div className="grid min-h-screen place-items-center bg-canvas">
-        <div className="flex items-center gap-3 text-sm text-muted">
-          <span className="size-4 animate-spin rounded-full border-2 border-line border-t-ink" />
-          Loading your workspace…
-        </div>
-      </div>
-    );
-  }
-
-  const isCreator = session.role === "influencer";
+  const isCreator = user.role === "creator";
 
   const nav: NavItem[] = isCreator
     ? [
@@ -124,9 +95,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className="px-4">
           <div className="rounded-2xl bg-canvas px-4 py-3">
             <p className="text-xs font-medium text-muted">
-              {isCreator ? "Creator workspace" : session.company ?? "Company workspace"}
+              {isCreator ? "Creator workspace" : user.company ?? "Company workspace"}
             </p>
-            <p className="mt-0.5 truncate text-sm font-semibold text-ink">{session.name}</p>
+            <p className="mt-0.5 truncate text-sm font-semibold text-ink">{user.name}</p>
           </div>
         </div>
 
@@ -149,10 +120,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
         <div className="border-t border-line p-4">
           <button
-            onClick={() => {
-              localStorage.removeItem("naano_current_user");
-              router.push("/");
-            }}
+            onClick={() => void logout()}
             className="flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-ink/70 transition-colors hover:bg-black/5 hover:text-ink"
           >
             <span className="text-ink/50">

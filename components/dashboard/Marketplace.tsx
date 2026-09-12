@@ -4,33 +4,40 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import Avatar from "@/components/Avatar";
 import { Header } from "@/components/dashboard/ui";
-import { marketplaceCreators, formatEuro } from "@/lib/data";
-import type { Creator } from "@/lib/types";
+import { formatEuro } from "@/lib/data";
+import { toggleBookmark } from "@/lib/actions";
+import type { MarketplaceCreatorDto } from "@/lib/dto";
 
 type SortKey = "fit" | "price" | "follows";
 
-export default function Marketplace() {
+export default function Marketplace({
+  creators,
+  initialBookmarked,
+}: {
+  creators: MarketplaceCreatorDto[];
+  initialBookmarked: string[];
+}) {
   const [query, setQuery] = useState("");
   const [topic, setTopic] = useState("All");
   const [network, setNetwork] = useState("All");
   const [sort, setSort] = useState<SortKey>("fit");
-  const [bookmarked, setBookmarked] = useState<Set<string>>(new Set());
+  const [bookmarked, setBookmarked] = useState<Set<string>>(new Set(initialBookmarked));
 
   const topics = useMemo(() => {
     const set = new Set<string>();
-    marketplaceCreators.forEach((c) => c.topics.forEach((t) => set.add(t)));
+    creators.forEach((c) => c.topics.forEach((t) => set.add(t)));
     return ["All", ...set];
-  }, []);
+  }, [creators]);
 
   const filtered = useMemo(() => {
-    let list = marketplaceCreators.filter((c) => {
+    let list = creators.filter((c) => {
       const matchesQuery =
         !query ||
         c.name.toLowerCase().includes(query.toLowerCase()) ||
         c.headline.toLowerCase().includes(query.toLowerCase()) ||
         c.bio.toLowerCase().includes(query.toLowerCase());
       const matchesTopic = topic === "All" || c.topics.includes(topic);
-      const matchesNetwork = network === "All" || c.networks.includes(network as Creator["networks"][number]);
+      const matchesNetwork = network === "All" || c.networks.includes(network);
       return matchesQuery && matchesTopic && matchesNetwork;
     });
     list = [...list].sort((a, b) => {
@@ -39,15 +46,26 @@ export default function Marketplace() {
       return b.fit - a.fit;
     });
     return list;
-  }, [query, topic, network, sort]);
+  }, [query, topic, network, sort, creators]);
 
-  const toggleBookmark = (id: string) => {
+  const toggle = async (id: string) => {
+    const was = bookmarked.has(id);
     setBookmarked((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
       return next;
     });
+    try {
+      await toggleBookmark(id);
+    } catch {
+      setBookmarked((prev) => {
+        const next = new Set(prev);
+        if (was) next.add(id);
+        else next.delete(id);
+        return next;
+      });
+    }
   };
 
   return (
@@ -94,7 +112,7 @@ export default function Marketplace() {
             className="shrink-0 rounded-full border border-line bg-white px-4 py-2 text-xs font-medium text-ink outline-none"
           >
             <option value="fit">Sort: best fit</option>
-            <option value="price">Sort: price ↑</option>
+            <option value="price">Sort: price low → high</option>
             <option value="follows">Sort: followers</option>
           </select>
         </div>
@@ -116,7 +134,7 @@ export default function Marketplace() {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {filtered.map((c) => (
-          <CreatorCard key={c.id} c={c} bookmarked={bookmarked.has(c.id)} onToggle={() => toggleBookmark(c.id)} />
+          <CreatorCard key={c.id} c={c} bookmarked={bookmarked.has(c.id)} onToggle={() => void toggle(c.id)} />
         ))}
       </div>
 
@@ -130,7 +148,15 @@ export default function Marketplace() {
   );
 }
 
-function CreatorCard({ c, bookmarked, onToggle }: { c: Creator; bookmarked: boolean; onToggle: () => void }) {
+function CreatorCard({
+  c,
+  bookmarked,
+  onToggle,
+}: {
+  c: MarketplaceCreatorDto;
+  bookmarked: boolean;
+  onToggle: () => void;
+}) {
   return (
     <div className="card group flex flex-col p-5 transition-all hover:shadow-lg hover:shadow-black/[0.05]">
       <div className="flex items-start gap-3">

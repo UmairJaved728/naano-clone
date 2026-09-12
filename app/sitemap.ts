@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { creators } from "@/lib/data";
 import { posts } from "@/lib/blog";
 
-const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://naano-clone.vercel.app";
+const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://naano-clone-green.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [

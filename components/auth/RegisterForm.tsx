@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useActionState } from "react";
 import Link from "next/link";
 import AuthShell from "@/components/auth/AuthShell";
-import { registerUser } from "@/lib/auth";
+import { signup } from "@/app/actions/auth";
 
 export default function RegisterForm({
   role,
@@ -15,34 +14,8 @@ export default function RegisterForm({
   title: string;
   subtitle?: string;
 }) {
-  const router = useRouter();
-  const [name, setName] = useState("");
-  const [work, setWork] = useState(role === "saas" ? "" : "linkedin");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-    setTimeout(() => {
-      const res = registerUser(email, password, {
-        role,
-        name,
-        email,
-        company: role === "saas" ? work || undefined : undefined,
-        linkedin: role === "influencer" ? work : undefined,
-      });
-      if (!res.ok) {
-        setError(res.error);
-        setLoading(false);
-        return;
-      }
-      router.push("/dashboard");
-    }, 500);
-  };
+  const dbRole = role === "saas" ? "brand" : "creator";
+  const [state, formAction, pending] = useActionState(signup, undefined);
 
   return (
     <AuthShell
@@ -59,27 +32,27 @@ export default function RegisterForm({
         </>
       }
     >
-      <form onSubmit={onSubmit} className="flex flex-col gap-4">
+      <form action={formAction} className="flex flex-col gap-4">
+        <input type="hidden" name="role" value={dbRole} />
+
         <label className="flex flex-col gap-1.5">
-          <span className="text-sm font-medium text-ink">
-            {role === "saas" ? "Full name" : "Public name"}
-          </span>
+          <span className="text-sm font-medium text-ink">{role === "saas" ? "Full name" : "Public name"}</span>
           <input
             required
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder={role === "saas" ? "Jane Cooper" : "Jane Cooper"}
+            name="name"
+            placeholder="Jane Cooper"
             className="rounded-full border border-line bg-canvas px-4 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-muted/60 focus:border-ink"
           />
+          {state?.errors?.name?.map((e) => (
+            <span key={e} className="text-xs text-rose-600">{e}</span>
+          ))}
         </label>
 
         {role === "saas" ? (
           <label className="flex flex-col gap-1.5">
             <span className="text-sm font-medium text-ink">Company</span>
             <input
-              required
-              value={work}
-              onChange={(e) => setWork(e.target.value)}
+              name="company"
               placeholder="Acme Inc."
               className="rounded-full border border-line bg-canvas px-4 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-muted/60 focus:border-ink"
             />
@@ -88,11 +61,10 @@ export default function RegisterForm({
           <label className="flex flex-col gap-1.5">
             <span className="text-sm font-medium text-ink">LinkedIn profile URL</span>
             <input
-              required
-              value={work}
-              onChange={(e) => setWork(e.target.value)}
-              placeholder="linkedin.com/in/your-handle"
-              className="rounded-full border border-line bg-canvas px-4 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-muted/60 focus:border-ink"
+              name="company"
+              value="linkedin.com/in/your-handle"
+              readOnly
+              className="rounded-full border border-line bg-canvas px-4 py-2.5 text-sm text-ink outline-none transition-colors focus:border-ink"
             />
           </label>
         )}
@@ -102,11 +74,13 @@ export default function RegisterForm({
           <input
             type="email"
             required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
             placeholder="you@company.com"
             className="rounded-full border border-line bg-canvas px-4 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-muted/60 focus:border-ink"
           />
+          {state?.errors?.email?.map((e) => (
+            <span key={e} className="text-xs text-rose-600">{e}</span>
+          ))}
         </label>
 
         <label className="flex flex-col gap-1.5">
@@ -115,21 +89,19 @@ export default function RegisterForm({
             type="password"
             required
             minLength={8}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
             placeholder="At least 8 characters"
             className="rounded-full border border-line bg-canvas px-4 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-muted/60 focus:border-ink"
           />
+          {state?.errors?.password?.map((e) => (
+            <span key={e} className="text-xs text-rose-600">{e}</span>
+          ))}
         </label>
 
-        {error && <p className="rounded-xl bg-rose-50 px-4 py-2.5 text-sm text-rose-700">{error}</p>}
+        {state?.message && <p className="rounded-xl bg-rose-50 px-4 py-2.5 text-sm text-rose-700">{state.message}</p>}
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="btn-primary mt-1 w-full py-3 text-[15px] font-semibold disabled:opacity-60"
-        >
-          {loading ? "Creating account…" : "Create account"}
+        <button type="submit" disabled={pending} className="btn-primary mt-1 w-full py-3 text-[15px] font-semibold disabled:opacity-60">
+          {pending ? "Creating account\u2026" : "Create account"}
         </button>
 
         <p className="text-center text-xs text-muted">

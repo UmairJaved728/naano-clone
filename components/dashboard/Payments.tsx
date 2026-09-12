@@ -1,50 +1,14 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { Header } from "@/components/dashboard/ui";
 import { formatEuro } from "@/lib/data";
-import type { User } from "@/lib/auth";
+import type { PaymentDto } from "@/lib/dto";
 
-interface Row {
-  id: string;
-  ref: string;
-  date: string;
-  to: string;
-  amount: number;
-  status: "paid" | "scheduled" | "pending";
-}
-
-const brandRows: Row[] = [
-  { id: "p1", ref: "INV-2026-041", date: "2026-09-10", to: "Lucas Weber", amount: 900, status: "paid" },
-  { id: "p2", ref: "INV-2026-038", date: "2026-09-09", to: "Marina Panova", amount: 700, status: "paid" },
-  { id: "p3", ref: "INV-2026-036", date: "2026-09-08", to: "Thomas Higadère", amount: 850, status: "scheduled" },
-  { id: "p4", ref: "INV-2026-033", date: "2026-09-05", to: "Robin Tempe", amount: 500, status: "scheduled" },
-  { id: "p5", ref: "INV-2026-031", date: "2026-09-02", to: "Raphaël Dubois", amount: 600, status: "paid" },
-];
-
-const creatorRows: Row[] = [
-  { id: "p1", ref: "PAY-2026-1088", date: "2026-09-10", to: "Folk", amount: 700, status: "paid" },
-  { id: "p2", ref: "PAY-2026-1061", date: "2026-09-02", to: "Abyssale", amount: 900, status: "paid" },
-];
-
-export default function Payments() {
-  const [role, setRole] = useState<string | null>(null);
-  const [session, setSession] = useState<User | null>(null);
-
-  useEffect(() => {
-    try {
-      const u = JSON.parse(localStorage.getItem("naano_current_user") ?? "null");
-      setSession(u);
-      setRole(u?.role ?? null);
-    } catch {
-      setRole(null);
-    }
-  }, []);
-
-  const isCreator = role === "influencer";
-  const rows = isCreator ? creatorRows : brandRows;
+export default function Payments({ role, rows }: { role: "brand" | "creator"; rows: PaymentDto[] }) {
+  const isCreator = role === "creator";
   const totalPaid = rows.filter((r) => r.status === "paid").reduce((s, r) => s + r.amount, 0);
-  const totalScheduled = rows.filter((r) => r.status === "scheduled").reduce((s, r) => s + r.amount, 0);
+  const totalPending = rows.filter((r) => r.status === "pending").reduce((s, r) => s + r.amount, 0);
+
+  const ref = (r: PaymentDto) =>
+    `${r.direction === "in" ? "PAY" : "INV"}-${r.id.slice(0, 7).toUpperCase()}`;
 
   return (
     <div className="max-w-4xl">
@@ -64,7 +28,7 @@ export default function Payments() {
         </div>
         <div className="card p-5">
           <p className="text-xs text-muted">{isCreator ? "Pending" : "Scheduled"}</p>
-          <p className="mt-2 font-display text-3xl font-bold text-ink">{formatEuro(totalScheduled)}</p>
+          <p className="mt-2 font-display text-3xl font-bold text-ink">{formatEuro(totalPending)}</p>
         </div>
       </div>
 
@@ -76,6 +40,9 @@ export default function Payments() {
           </div>
           <span className="chip text-emerald-700">Stripe Connect</span>
         </div>
+        {rows.length === 0 && (
+          <p className="px-6 py-10 text-center text-sm text-muted">No payments yet.</p>
+        )}
         <div className="divide-y divide-line">
           {rows.map((r) => (
             <div key={r.id} className="flex items-center justify-between px-6 py-4">
@@ -89,9 +56,9 @@ export default function Payments() {
                   </svg>
                 </span>
                 <div>
-                  <p className="text-sm font-semibold text-ink">{r.ref}</p>
+                  <p className="text-sm font-semibold text-ink">{ref(r)}</p>
                   <p className="text-xs text-muted">
-                    {isCreator ? `From ${r.to}` : `To ${r.to}`} · {r.date}
+                    {r.direction === "in" ? `From ${r.campaignName}` : `To ${r.creatorName ?? r.campaignName}`} · {r.createdAt.slice(0, 10)}
                   </p>
                 </div>
               </div>

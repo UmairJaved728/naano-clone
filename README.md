@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Naano — B2B LinkedIn Creator Marketplace (clone)
+
+A rebuild of [naano.com](https://naano.com) as a working product: a two-sided
+marketplace where B2B brands book vetted LinkedIn/X/YouTube creators at fixed
+per-post prices and trace pipeline back to each post.
+
+**Live demo:** https://naano-clone-green.vercel.app
+
+## Stack
+- Next.js 16 (App Router, Turbopack) + TypeScript
+- Tailwind CSS v4 + custom design tokens (`globals.css`)
+- Client-side auth & state via localStorage (no backend keys): `naano_users`,
+  `naano_current_user`, `naano_campaigns`
+- Fonts: Inter + Plus Jakarta Sans via `next/font`
+
+## Routes
+Marketing: `/`, `/creators`, `/agencies`, `/agency`, `/talent-agency`,
+`/pricing`, `/about`, `/blog`, `/blog/[slug]`, `/case-studies/blogseo`,
+`/reports`, `/for/[vertical]`, `/selection`, `/free-tools` (+ creator-worth
+calculator), `/linkedin-creator-marketplace`, `/privacy`, `/terms`, `/help`,
+`/book`, `/not-found`.
+
+Auth: `/login`, `/register` (+ `/saas`, `/influencer`).
+
+Dashboard (role-aware): `/dashboard`, `/marketplace`, `/marketplace/[id]`,
+`/campaigns`, `/campaigns/new`, `/campaigns/[id]`, `/payments`,
+`/media-kit`, `/settings`.
+
+Agents: `/llms.txt`, `/pricing.md`, `/robots.txt`, `/sitemap.xml`.
 
 ## Getting Started
-
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Build & preview:
+```bash
+npm run build
+npm run start
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Agent capture
+This project logs every agent session (prompts, responses, decisions) to
+`.agent-logs/`, committed interleaved with code. See `CAPTURE-TEST.md`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Attribution to the original
+Clone/interactive-demo of naano.com for a 24-hour engineering assessment.
+Product & brand belong to Naano.

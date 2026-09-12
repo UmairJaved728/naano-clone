@@ -12,7 +12,7 @@ export default function HowItWorks() {
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           One platform, from brief to results
         </p>
-        <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+        <h2 className="mt-4 max-w-2xl font-display text-[clamp(32px,5.5vw,72px)] font-semibold leading-[1.05] tracking-[-0.05em] text-ink">
           Run creator campaigns from one place.
         </h2>
         <p className="mt-4 max-w-xl text-lg text-muted">
@@ -72,7 +72,7 @@ export default function HowItWorks() {
             <div className="mt-6 space-y-2 rounded-2xl border border-line bg-canvas p-4">
               {["Objectives & key messages", "Creator guidelines", "Tracking links ready"].map((t) => (
                 <div key={t} className="flex items-center gap-2 text-sm text-ink/80">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2.5" className="shrink-0">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1652f0" strokeWidth="2.5" className="shrink-0">
                     <path d="M20 6L9 17l-5-5" />
                   </svg>
                   {t}
@@ -183,7 +183,7 @@ export default function HowItWorks() {
             <div
               aria-hidden
               className="pointer-events-none absolute inset-0"
-              style={{ background: "radial-gradient(60% 60% at 80% 10%, rgba(37,99,235,0.35) 0%, transparent 60%)" }}
+              style={{ background: "radial-gradient(60% 60% at 80% 10%, rgba(22,82,240,0.35) 0%, transparent 60%)" }}
             />
             <div className="relative">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">

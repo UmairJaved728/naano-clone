@@ -5,20 +5,12 @@ export default function Results() {
   const showcase = [creators[0], creators[1], creators[2], creators[3]];
 
   return (
-    <section className="relative overflow-hidden bg-night py-24 text-white">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(50% 40% at 15% 0%, rgba(37,99,235,0.22) 0%, transparent 60%), radial-gradient(45% 45% at 90% 90%, rgba(30,64,175,0.18) 0%, transparent 62%)",
-        }}
-      />
+    <section className="relative overflow-hidden bg-canvas py-24">
       <div className="relative mx-auto max-w-6xl px-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           The results
         </p>
-        <h2 className="mt-4 max-w-xl font-display text-4xl font-bold tracking-tight sm:text-5xl">
+        <h2 className="mt-4 max-w-xl font-display text-[clamp(32px,4.5vw,50px)] font-semibold leading-[1.05] tracking-[-0.035em] text-ink">
           Proven across thousands of campaigns.
         </h2>
 
@@ -30,8 +22,8 @@ export default function Results() {
             ["5K+", "Posts published"],
           ].map(([v, l]) => (
             <div key={l}>
-              <p className="font-display text-5xl font-bold text-white">{v}</p>
-              <p className="mt-2 text-sm text-white/50">{l}</p>
+              <p className="font-display text-5xl font-semibold tracking-tight text-ink">{v}</p>
+              <p className="mt-2 text-sm text-ink-soft">{l}</p>
             </div>
           ))}
         </div>
@@ -42,11 +34,11 @@ export default function Results() {
             return (
               <div
                 key={c.id}
-                className="flex flex-col rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur transition-colors hover:border-white/20"
+                className="flex flex-col rounded-3xl border border-line bg-white p-6 transition-colors hover:border-ink/30"
               >
-                <p className="text-sm font-semibold text-white">{c.name}</p>
-                <p className="mt-0.5 text-xs text-white/50">{c.headline}</p>
-                <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-white/70">
+                <p className="text-sm font-semibold text-ink">{c.name}</p>
+                <p className="mt-0.5 text-xs text-ink-soft">{c.headline}</p>
+                <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-ink/70">
                   {post.title}
                 </p>
                 <div className="mt-5 grid grid-cols-3 gap-2 text-center">
@@ -55,22 +47,22 @@ export default function Results() {
                     [post.clicks, "Clicks"],
                     [post.leads, "Leads"],
                   ].map(([v, l]) => (
-                    <div key={l as string} className="rounded-xl bg-white/5 py-2">
-                      <p className="text-sm font-bold text-white">
+                    <div key={l as string} className="rounded-xl bg-surface-2 py-2">
+                      <p className="text-sm font-semibold text-ink">
                         {new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: 0 }).format(v as number)}
                       </p>
-                      <p className="text-[10px] text-white/45">{l}</p>
+                      <p className="text-[10px] text-ink-soft">{l}</p>
                     </div>
                   ))}
                 </div>
-                <p className="mt-4 text-xs text-white/50">
-                  For <span className="font-medium text-white/80">{post.brand}</span>
+                <p className="mt-4 text-xs text-ink-soft">
+                  For <span className="font-medium text-ink">{post.brand}</span>
                 </p>
                 <Link
                   href={post.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-blue-400 hover:text-blue-300"
+                  className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-accent hover:text-accent-strong"
                 >
                   View post →
                 </Link>

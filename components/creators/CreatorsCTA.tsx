@@ -8,11 +8,11 @@ export default function CreatorsCTA() {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(55% 60% at 50% 0%, rgba(37,99,235,0.4) 0%, transparent 62%)",
+                "radial-gradient(55% 60% at 50% 0%, rgba(22,82,240,0.4) 0%, transparent 62%)",
             }}
           />
           <div className="relative">
-            <h2 className="mx-auto max-w-2xl text-balance font-display text-4xl font-bold leading-tight sm:text-5xl">
+            <h2 className="mx-auto max-w-2xl text-balance font-display text-[clamp(30px,4vw,44px)] font-semibold leading-[1.1] tracking-[-0.03em]">
               Your next paid post is one brief away.
             </h2>
             <p className="mx-auto mt-4 max-w-md text-white/60">

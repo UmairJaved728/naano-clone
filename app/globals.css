@@ -2,14 +2,20 @@
 
 @theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-didot), Georgia, serif;
 
   --color-ink: #17181c;
   --color-canvas: #fcfcfb;
   --color-muted: #6b6d74;
   --color-line: #e8e6e2;
-  --color-accent: #2563eb;
+  --color-accent: #1652f0;
+  --color-accent-strong: #1240d0;
+  --color-accent-soft: #e8f0fe;
+  --color-ink-soft: #787774;
+  --color-surface: #fff;
+  --color-surface-2: #fafaf9;
+  --color-beige: #f4f0e8;
   --color-night: #020408;
 }
 
@@ -29,8 +35,8 @@ body {
 }
 
 ::selection {
-  background: rgba(37, 99, 235, 0.3);
-  color: #bcd7ff;
+  background: rgba(22, 82, 240, 0.3);
+  color: #1a1c20;
 }
 
 /* ---------- reusable surfaces ---------- */
@@ -50,8 +56,8 @@ body {
   justify-content: center;
   gap: 0.5rem;
   border-radius: 9999px;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.9375rem;
+  font-weight: 600;
   white-space: nowrap;
   transition: all 0.2s ease;
   user-select: none;
@@ -60,6 +66,7 @@ body {
 .btn-primary {
   background: var(--color-ink);
   color: #fff;
+  padding: 0.6875rem 1.25rem;
 }
 
 .btn-primary:hover {
@@ -80,6 +87,7 @@ body {
   border: 1px solid var(--color-line);
   background: #fff;
   color: var(--color-ink);
+  padding: 0.625rem 1.125rem;
 }
 
 .btn-light:hover {
@@ -92,7 +100,7 @@ body {
 }
 
 .btn-blue:hover {
-  background: #1d4ed8;
+  background: var(--color-accent-strong);
 }
 
 .btn-primary:active,

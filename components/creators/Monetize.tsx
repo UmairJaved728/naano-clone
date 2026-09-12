@@ -9,7 +9,7 @@ export default function Monetize() {
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
               Monetize your content
             </p>
-            <h2 className="mt-4 text-balance font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+            <h2 className="mt-4 text-balance font-display text-[clamp(32px,5vw,50px)] font-semibold leading-[1.05] tracking-[-0.035em] text-ink">
               Your audience is already valuable to B2B brands.
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-muted">

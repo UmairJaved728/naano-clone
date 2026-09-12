@@ -42,7 +42,7 @@ export default function CreatorsFAQ() {
         <p className="text-center text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           Creator questions
         </p>
-        <h2 className="mt-4 text-balance text-center font-display text-4xl font-bold tracking-tight text-ink">
+        <h2 className="mt-4 text-balance text-center font-display text-[clamp(32px,5vw,50px)] font-semibold leading-[1.05] tracking-[-0.035em] text-ink">
           From first brief to first payout.
         </h2>
 

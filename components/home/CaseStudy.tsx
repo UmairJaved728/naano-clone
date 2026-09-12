@@ -10,7 +10,7 @@ export default function CaseStudy() {
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
               Case study
             </p>
-            <h2 className="mt-4 font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+            <h2 className="mt-4 font-display text-[clamp(32px,5.5vw,64px)] font-semibold leading-[1.05] tracking-[-0.05em] text-ink">
               How BlogSEO turned creator content into product signups
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-muted">

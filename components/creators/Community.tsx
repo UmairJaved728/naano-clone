@@ -34,7 +34,7 @@ export default function Community() {
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           Community
         </p>
-        <h2 className="mt-4 max-w-xl font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+        <h2 className="mt-4 max-w-xl font-display text-[clamp(32px,5vw,50px)] font-semibold leading-[1.05] tracking-[-0.035em] text-ink">
           Creators building a channel on Naano.
         </h2>
 

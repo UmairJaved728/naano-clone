@@ -46,7 +46,7 @@ export default function FAQ() {
         <p className="text-center text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           Frequently asked questions
         </p>
-        <h2 className="mx-auto mt-4 text-balance text-center font-display text-4xl font-bold tracking-tight text-ink">
+        <h2 className="mx-auto mt-4 text-balance text-center font-display text-[clamp(32px,5vw,60px)] font-semibold leading-[1.05] tracking-[-0.05em] text-ink">
           Everything you need to know before getting started.
         </h2>
 

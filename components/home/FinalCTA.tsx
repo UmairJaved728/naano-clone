@@ -10,7 +10,7 @@ export default function FinalCTA() {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(55% 55% at 90% 0%, rgba(37,99,235,0.45) 0%, transparent 60%), radial-gradient(40% 40% at 10% 100%, rgba(59,130,246,0.25) 0%, transparent 60%)",
+                "radial-gradient(55% 55% at 90% 0%, rgba(22,82,240,0.45) 0%, transparent 60%), radial-gradient(40% 40% at 10% 100%, rgba(22,82,240,0.25) 0%, transparent 60%)",
             }}
           />
           <div className="relative grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.2fr_1fr]">
@@ -18,7 +18,7 @@ export default function FinalCTA() {
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-400">
                 Ready to launch?
               </p>
-              <h2 className="mt-4 text-balance font-display text-4xl font-bold leading-tight sm:text-5xl">
+              <h2 className="mt-4 text-balance font-display text-[clamp(30px,4vw,44px)] font-semibold leading-[1.1] tracking-[-0.03em]">
                 Your next creator campaign starts here.
               </h2>
               <p className="mt-5 max-w-md text-white/60">

@@ -46,24 +46,19 @@ export default function Nav({
 
   const solid = scrolled || onLight;
   const items = links === "home" ? companyLinks : marketingLinks;
-  const textColor = solid ? "text-ink" : "text-white/85";
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6">
       <nav
-        className={`mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-4 py-3 transition-all duration-300 ${
-          solid
-            ? "border border-line/80 bg-white/90 shadow-lg shadow-black/[0.04] backdrop-blur-xl"
-            : "bg-transparent"
+        className={`mx-auto flex max-w-6xl items-center justify-between rounded-full border border-line/80 bg-white/90 px-4 py-2.5 transition-all duration-300 backdrop-blur-xl ${
+          solid ? "shadow-lg shadow-black/[0.04]" : ""
         }`}
       >
-        <div className={solid ? "" : "opacity-90"}>
-          <Logo className={solid ? "" : "text-white"} />
+        <div>
+          <Logo />
         </div>
 
-        <div
-          className={`hidden items-center gap-7 text-[15px] font-medium lg:flex ${textColor}`}
-        >
+        <div className="hidden items-center gap-7 text-[14px] font-medium text-ink-soft lg:flex">
           {items.map((l) => (
             <Link
               key={l.href}
@@ -75,24 +70,24 @@ export default function Nav({
           ))}
         </div>
 
-        <div className="hidden items-center gap-2 lg:flex">
+        <div className="hidden items-center gap-1.5 lg:flex">
           {links === "marketing" && (
             <Link
               href="/login"
-              className="rounded-full px-4 py-2 text-[15px] font-medium text-ink transition-colors hover:bg-black/5"
+              className="rounded-full px-3 py-2 text-[15px] font-medium text-ink transition-colors hover:bg-black/5"
             >
               Sign in
             </Link>
           )}
           <Link
             href={links === "home" ? signInHref : registerHref}
-            className="rounded-full px-4 py-2 text-[15px] font-medium text-ink transition-colors hover:bg-black/5"
+            className="rounded-full bg-white px-[18px] py-[10px] text-[15px] font-semibold text-ink ring-1 ring-inset ring-line transition-colors hover:ring-ink/30"
           >
             {links === "home" ? "Sign in" : registerLabel === "Start earning" ? "Sign in" : "Sign in"}
           </Link>
           <Link
             href={links === "home" ? registerHref : registerHref}
-            className="rounded-full bg-ink px-5 py-2 text-[15px] font-medium text-white transition-all hover:bg-black hover:shadow-md active:scale-[0.98]"
+            className="rounded-full bg-ink px-5 py-[11px] text-[15px] font-semibold text-white transition-all hover:bg-black hover:shadow-md active:scale-[0.98]"
           >
             {registerLabel === "Get started" ? "Get started" : "Start earning"}
           </Link>
@@ -102,11 +97,7 @@ export default function Nav({
           <button
             aria-label="Menu"
             onClick={() => setOpen(!open)}
-            className={`grid size-9 place-items-center rounded-full border transition-colors ${
-              solid
-                ? "border-line bg-white text-ink"
-                : "border-white/25 bg-white/10 text-white"
-            }`}
+            className="grid size-9 place-items-center rounded-full border border-line bg-white text-ink"
           >
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
               {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}

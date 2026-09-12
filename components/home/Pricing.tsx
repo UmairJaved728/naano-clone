@@ -7,7 +7,7 @@ export default function Pricing() {
         <p className="text-center text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           Pricing
         </p>
-        <h2 className="mx-auto mt-4 max-w-2xl text-balance text-center font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+        <h2 className="mx-auto mt-4 max-w-2xl text-balance text-center font-display text-[clamp(32px,5.5vw,64px)] font-semibold leading-[1.05] tracking-[-0.05em] text-ink">
           Start free. Upgrade when you want your time back.
         </h2>
         <p className="mx-auto mt-4 max-w-lg text-center text-lg text-muted">
@@ -39,7 +39,7 @@ export default function Pricing() {
                 "Automatic creator payouts",
               ].map((f) => (
                 <li key={f} className="flex items-start gap-2.5">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2.5" className="mt-0.5 shrink-0">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1652f0" strokeWidth="2.5" className="mt-0.5 shrink-0">
                     <path d="M20 6L9 17l-5-5" />
                   </svg>
                   {f}

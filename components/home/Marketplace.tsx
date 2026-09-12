@@ -10,7 +10,7 @@ export default function Marketplace() {
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           The Naano creator marketplace
         </p>
-        <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+        <h2 className="mt-4 max-w-2xl font-display text-[clamp(32px,5.5vw,72px)] font-semibold leading-[1.05] tracking-[-0.05em] text-ink">
           Work with all the best creators.
         </h2>
         <p className="mt-4 max-w-xl text-lg text-muted">

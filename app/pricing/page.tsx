@@ -60,7 +60,7 @@ export default function PricingPage() {
               <ul className="mt-8 space-y-3 text-sm text-ink/80">
                 {selfServe.map((f) => (
                   <li key={f} className="flex items-start gap-2.5">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2.5" className="mt-0.5 shrink-0">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1652f0" strokeWidth="2.5" className="mt-0.5 shrink-0">
                       <path d="M20 6L9 17l-5-5" />
                     </svg>
                     {f}

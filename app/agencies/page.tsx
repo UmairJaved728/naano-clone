@@ -51,7 +51,7 @@ export default function AgenciesPage() {
                   "White-label client reporting",
                 ].map((f) => (
                   <li key={f} className="flex items-center gap-2.5">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2.5" className="shrink-0">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1652f0" strokeWidth="2.5" className="shrink-0">
                       <path d="M20 6L9 17l-5-5" />
                     </svg>
                     {f}

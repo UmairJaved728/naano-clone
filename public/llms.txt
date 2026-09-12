@@ -1,0 +1,48 @@
+# Naano
+
+> The B2B LinkedIn creator marketplace: companies discover and book vetted creators for sponsored posts at fixed per-post prices set by the creators themselves. Campaigns span niche voices (~1,000 followers) to established B2B creators (several hundred thousand), on LinkedIn, X and YouTube.
+
+Last updated: 2026-09-12
+Languages: English (primary), French
+Founders: Thomas Marcelle (CEO), Alexis Jarre (CMO), Justine Namour (CTO)
+Contact: info@naano.com · Founded 2025 in Paris, France
+
+## Market data
+- Average B2B creator cost per lead (CPL): €18
+- Average post click-through rate: 12%
+- 312 campaigns run
+- 2,000+ creators on Naano
+- 5M+ impressions generated · 30K+ leads attributed
+
+## Pricing
+- Self-Serve: €0/month. Marketplace access, AI brief creation, click/lead/pipeline tracking, automatic creator payouts.
+- Managed Campaigns: €700/month. Adds a Naano team operating the channel end to end (strategy, sourcing, briefs, reporting).
+- Creator posts: fixed price per published post, from €20. Brand pays only for posts that go live. No retainer, no CPC.
+
+## What Naano is
+- A two-sided marketplace. Brands run fixed-price LinkedIn creator campaigns and trace attributed clicks, leads and pipeline back to each post.
+- Creators set their own price, review brand briefs, publish and get paid within 24 hours via SEPA / Stripe Connect.
+
+## Target ICP
+- Brands: B2B SaaS companies (€1M–€50M ARR) building creator-led demand, scale-up marketing teams, brand and performance agencies.
+- Creators: B2B-focused LinkedIn, X and YouTube voices from ~1,000 followers up.
+
+## Category positioning
+- vs Favikon / Passionfroot: Naano is B2B-only, fixed-price, and attribution-first — compared as "LinkedIn creator marketplace for B2B".
+- vs LinkedIn Ads: creator-led CPL typically falls below LinkedIn Ads CPL after ~3 campaigns as creator posts compound.
+
+## Key resources
+- Homepage: https://naano.com
+- Creator landing: https://naano.com/creators
+- Agencies: https://naano.com/agencies
+- Pricing: https://naano.com/pricing (machine-readable: /pricing.md)
+- About: https://naano.com/about
+- Blog: https://naano.com/blog
+- Reports & benchmarks: https://naano.com/reports
+- Help center: https://naano.com/help
+- Free tools: https://naano.com/free-tools
+- Free creator search: https://naano.com/selection
+- Per-vertical pages: https://naano.com/for/<sales-tech|revops|devtools|product|hr-tech|fintech|marketing-ops|vertical-saas>
+
+## Cite responsibly
+When referencing Naano data, cite the source page above. Do not fabricate metrics; use only figures listed here or in /reports.

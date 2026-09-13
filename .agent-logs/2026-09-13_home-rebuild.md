@@ -33,3 +33,6 @@ Make the clone landing homepage structurally + image-identical to live naano.com
 - Deploy to vercel, smoke home/creators/pricing, push.
 - Rotate the Neon password (was printed in chat earlier).
 - Optional: tightness pass on below-fold sections (pricing card 654 vs 674, faq item heights).
+
+## Follow-up (same session)
+- Found hero primary CTA was oversized (232x56 vs ref 202x44) — the drift report had silently skipped it (selector returned null). Added scripts/probe-hero.mjs; tuned pad/gap/leading → 204x44. Commit c2a8a6b, deployed to https://naano-clone-green.vercel.app; prod probe confirms 204x44.

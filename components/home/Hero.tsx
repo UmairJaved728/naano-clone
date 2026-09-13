@@ -51,7 +51,7 @@ export default function Hero() {
         <div className="mt-[44px] flex items-center gap-6">
           <Link
             href="/register"
-            className="lp-hero-primary flex items-center gap-[11px] rounded-[12px] bg-ink px-[28px] py-[16px] text-[16px] font-semibold text-white transition-colors hover:bg-black"
+            className="lp-hero-primary flex items-center gap-[9px] rounded-[12px] bg-ink px-[15px] py-[14px] text-[16px] font-semibold leading-none text-white transition-colors hover:bg-black"
           >
             Launch a campaign
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>

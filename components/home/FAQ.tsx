@@ -28,7 +28,7 @@ const faqs = [
     a: "Yes. Approve content and pay every creator in one click, securely via Stripe Connect; invoices and approvals are handled for you.",
   },
   {
-    q: "What's the difference between Free and Managed?",
+    q: "What's the difference between Free and Done for you?",
     a: "Free gives your team the platform to source creators and run simple campaigns yourselves. Managed adds hands-on execution by the Naano team — sourcing, briefs, reporting and optimisation.",
   },
   {
@@ -41,33 +41,41 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="bg-white py-24">
-      <div className="mx-auto max-w-3xl px-6">
-        <p className="text-center text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-          Frequently asked questions
-        </p>
-        <h2 className="mx-auto mt-4 text-balance text-center font-display text-[clamp(32px,5vw,60px)] font-semibold leading-[1.05] tracking-[-0.05em] text-ink">
-          Everything you need to know before getting started.
-        </h2>
+    <section id="faq" className="bg-white px-[84px] pb-[144px] pt-[130px]">
+      <div className="mx-auto grid max-w-[1176px] grid-cols-[355px_1fr] gap-[80px]">
+        <div className="sticky top-[120px] self-start">
+          <h2 className="font-display text-[51.84px] font-semibold leading-[53.4px] tracking-[-2.33px] text-[#111318]">
+            Frequently asked questions.
+          </h2>
+          <p className="mt-[16px] text-[19px] leading-[28.5px] text-[#55575e]">
+            Everything you need to know before getting started.
+          </p>
+          <p className="mt-[28px] text-[16px] text-[#55575e]">
+            Still have questions?{" "}
+            <a href="/book" className="font-semibold text-[#111318] underline decoration-[#111318]/40 underline-offset-4 hover:decoration-[#111318]">
+              Talk to our team
+            </a>
+          </p>
+        </div>
 
-        <div className="mt-12 divide-y divide-line rounded-3xl border border-line bg-canvas">
+        <div>
           {faqs.map((f, i) => {
             const isOpen = open === i;
             return (
-              <div key={f.q}>
+              <div key={f.q} className="border-t border-[#dfe7eb] last:border-b last:border-[#dfe7eb]">
                 <button
                   onClick={() => setOpen(isOpen ? null : i)}
-                  className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                  className="flex w-full items-center justify-between gap-6 py-[28px] text-left"
                 >
-                  <span className="font-display text-base font-semibold text-ink">
+                  <span className="text-[18px] font-semibold tracking-[-0.02em] text-[#111318]">
                     {f.q}
                   </span>
                   <span
-                    className={`grid size-7 shrink-0 place-items-center rounded-full border border-line text-ink transition-transform duration-200 ${
+                    className={`grid size-[26px] shrink-0 place-items-center rounded-full border border-[#dfe7eb] text-[#111318] transition-transform duration-200 ${
                       isOpen ? "rotate-45" : ""
                     }`}
                   >
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden>
                       <path d="M12 5v14M5 12h14" />
                     </svg>
                   </span>
@@ -78,7 +86,7 @@ export default function FAQ() {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <p className="px-6 pb-6 text-sm leading-relaxed text-muted">
+                    <p className="max-w-[640px] pb-[28px] text-[15px] leading-relaxed text-[#55575e]">
                       {f.a}
                     </p>
                   </div>
@@ -87,13 +95,6 @@ export default function FAQ() {
             );
           })}
         </div>
-
-        <p className="mt-8 text-center text-sm text-muted">
-          Still have questions?{" "}
-          <a href="/book" className="font-semibold text-accent hover:underline">
-            Talk to our team
-          </a>
-        </p>
       </div>
     </section>
   );

@@ -1,205 +1,168 @@
-import Avatar from "@/components/Avatar";
-import { creators } from "@/lib/data";
-
 export default function HowItWorks() {
-  const c1 = creators[0];
-  const c3 = creators[2];
-  const c2 = creators[1];
-
   return (
-    <section id="how-it-works" className="bg-white py-24">
-      <div className="mx-auto max-w-6xl px-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-          One platform, from brief to results
-        </p>
-        <h2 className="mt-4 max-w-2xl font-display text-[clamp(32px,5.5vw,72px)] font-semibold leading-[1.05] tracking-[-0.05em] text-ink">
-          Run creator campaigns from one place.
-        </h2>
-        <p className="mt-4 max-w-xl text-lg text-muted">
+    <section
+      id="how-it-works"
+      className="bg-gradient-to-b from-[#f2faff] via-white to-white px-[84px] pb-[126px] pt-[110px]"
+    >
+      <header className="grid grid-cols-[1fr_340px] gap-[80px]">
+        <div>
+          <div className="flex items-center gap-[10px]">
+            <span className="block size-[9px] rounded-full bg-[#315b7c]" />
+            <p className="text-[12px] font-[750] tracking-[1.8px] text-[#60727c]">
+              ONE PLATFORM, FROM BRIEF TO RESULTS
+            </p>
+          </div>
+          <h2 className="mt-[18px] max-w-[640px] font-display text-[51.84px] font-semibold leading-[53.4px] tracking-[-2.33px] text-[#111318]">
+            Run creator campaigns from one place.
+          </h2>
+        </div>
+        <p className="mt-[20px] self-start text-[19px] leading-[28.5px] text-[#55575e]">
           Find the right voices, launch faster, and connect every post to
           measurable business results.
         </p>
+      </header>
 
-        <div className="mt-16 grid grid-cols-1 gap-5 lg:grid-cols-3">
-          {/* 01 */}
-          <div className="card p-7">
-            <div className="flex items-center justify-between">
-              <span className="font-display text-sm font-semibold text-muted">01</span>
-              <span className="chip">Find creators your buyers trust</span>
-            </div>
-            <h3 className="mt-6 font-display text-xl font-semibold text-ink">
-              Match by audience fit
-            </h3>
-            <p className="mt-2 text-sm text-muted">
-              Rank creators by who actually reaches your buyers — not follower
-              count alone.
-            </p>
-            <div className="mt-6 space-y-3">
-              {[c1, c2, creators[4]].map((c) => (
-                <div key={c.id} className="flex items-center gap-3">
-                  <Avatar name={c.name} color={c.color} size="sm" />
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-ink">{c.firstName}</p>
-                  </div>
-                  <span className="rounded-md bg-emerald-50 px-2 py-0.5 text-xs font-bold text-emerald-700">
-                    Fit {c.fit}%
+      <div className="mt-[60px] grid grid-cols-5 gap-[24px]">
+        {/* 01 */}
+        <article className="flex flex-col rounded-[24px] bg-white p-[18px_18px_22px] shadow-[0_22px_58px_-44px_rgba(56,96,128,0.38)]">
+          <span className="grid h-[24px] w-[31px] place-items-center self-start rounded-full border border-[#8fbbd1] bg-[#f4fbfe] text-[10px] font-extrabold tracking-[0.8px] text-[#54778a]">
+            01
+          </span>
+          <div className="mt-[18px] space-y-[6px] rounded-[20px] border border-[#e9f3f8] bg-[#f6fbfd] p-[16px]">
+            {[["Eric", "92%"], ["Robin", "88%"], ["Aya", "84%"]].map(([n, f]) => (
+              <div key={n} className="flex items-center justify-between px-[4px] py-[3px]">
+                <div className="flex items-center gap-[7px]">
+                  <span className="grid size-[22px] place-items-center rounded-full bg-[#d7e7f0] text-[8px] font-bold text-[#42617a]">
+                    {n[0]}
                   </span>
+                  <span className="text-[11.5px] font-bold text-[#17181c]">{n}</span>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* 02 */}
-          <div className="card p-7">
-            <div className="flex items-center justify-between">
-              <span className="font-display text-sm font-semibold text-muted">02</span>
-              <span className="chip">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10" />
-                  <circle cx="12" cy="12" r="6" />
-                  <circle cx="12" cy="12" r="2" />
-                </svg>
-                AI
-              </span>
-            </div>
-            <h3 className="mt-6 font-display text-xl font-semibold text-ink">
-              Build a campaign brief in minutes
-            </h3>
-            <p className="mt-2 text-sm text-muted">
-              Objectives, key messages and creator guidelines — generated from
-              your product in one prompt.
-            </p>
-            <div className="mt-6 space-y-2 rounded-2xl border border-line bg-canvas p-4">
-              {["Objectives & key messages", "Creator guidelines", "Tracking links ready"].map((t) => (
-                <div key={t} className="flex items-center gap-2 text-sm text-ink/80">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1652f0" strokeWidth="2.5" className="shrink-0">
-                    <path d="M20 6L9 17l-5-5" />
-                  </svg>
-                  {t}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* 03 */}
-          <div className="card p-7">
-            <div className="flex items-center justify-between">
-              <span className="font-display text-sm font-semibold text-muted">03</span>
-              <span className="chip">Manage every collaboration</span>
-            </div>
-            <h3 className="mt-6 font-display text-xl font-semibold text-ink">
-              One inbox for all creators
-            </h3>
-            <p className="mt-2 text-sm text-muted">
-              Approve content, schedule posts and track delivery in a single
-              pipeline.
-            </p>
-            <div className="mt-6 space-y-2">
-              {[
-                { c: creators[5], badge: "Draft ready", cls: "bg-amber-50 text-amber-700" },
-                { c: creators[6], badge: "Scheduled", cls: "bg-indigo-50 text-indigo-700" },
-                { c: creators[1], badge: "Live", cls: "bg-emerald-50 text-emerald-700" },
-              ].map(({ c, badge, cls }) => (
-                <div key={c.id} className="flex items-center gap-3 rounded-xl border border-line px-3 py-2">
-                  <Avatar name={c.name} color={c.color} size="sm" />
-                  <p className="min-w-0 flex-1 truncate text-sm font-medium text-ink">{c.firstName}</p>
-                  <span className={`rounded-md px-2 py-0.5 text-xs font-semibold ${cls}`}>{badge}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* 04 */}
-          <div className="card p-7">
-            <div className="flex items-center justify-between">
-              <span className="font-display text-sm font-semibold text-muted">04</span>
-              <span className="chip">Track reach, clicks, and leads</span>
-            </div>
-            <h3 className="mt-6 font-display text-xl font-semibold text-ink">
-              Attribution you can trust
-            </h3>
-            <p className="mt-2 text-sm text-muted">
-              Every click, lead and euro of pipeline traced back to the exact
-              creator and post.
-            </p>
-            <div className="mt-6 rounded-2xl border border-line bg-canvas p-4">
-              <div className="flex items-end justify-between">
-                <div>
-                  <p className="text-xs text-muted">Attributed pipeline</p>
-                  <p className="font-display text-3xl font-bold text-ink">€48.2K</p>
-                </div>
-                <span className="rounded-md bg-emerald-50 px-2 py-1 text-xs font-bold text-emerald-700">
-                  +24%
+                <span className="text-[9px] text-[#8390a2]">
+                  <b className="font-bold text-[#315b7c]">{f}</b> Fit
                 </span>
               </div>
-              <div className="mt-4 grid grid-cols-3 gap-3 text-center">
-                {[
-                  ["124K", "views"],
-                  ["418", "leads"],
-                  ["€1.24K", "spent"],
-                ].map(([v, l]) => (
-                  <div key={l} className="rounded-xl bg-white py-2">
-                    <p className="text-sm font-bold text-ink">{v}</p>
-                    <p className="text-[11px] text-muted">{l}</p>
-                  </div>
-                ))}
+            ))}
+          </div>
+          <h3 className="mt-[16px] px-[4px] text-[17px] font-[650] leading-[19px] tracking-[-0.34px] text-[#111318]">
+            Find creators your buyers trust
+          </h3>
+        </article>
+
+        {/* 02 */}
+        <article className="flex flex-col rounded-[24px] bg-white p-[18px_18px_22px] shadow-[0_22px_58px_-44px_rgba(56,96,128,0.38)]">
+          <div className="flex items-center justify-between self-stretch">
+            <span className="grid w-[31px] place-items-center rounded-full border border-[#8fbbd1] bg-[#f4fbfe] text-[10px] font-extrabold tracking-[0.8px] text-[#54778a]">
+              02
+            </span>
+            <span className="flex items-center gap-[4px] self-start">
+              <span className="text-[12px] font-bold text-[#17181c]">Campaign brief</span>
+              <span className="rounded-full bg-[#dceffa] px-[8px] py-[4px] text-[9.5px] font-bold text-[#315b7c]">
+                AI
+              </span>
+            </span>
+          </div>
+          <div className="mt-[18px] space-y-[10px] rounded-[20px] border border-[#e9f3f8] bg-[#f6fbfd] p-[16px]">
+            {["Objectives and key messages", "Creator guidelines", "Tracking links ready"].map((t) => (
+              <div key={t} className="flex items-center gap-[8px]">
+                <span className="grid size-[15px] place-items-center rounded-full bg-[#dceffa] text-[9px] text-[#315b7c]">
+                  ✓
+                </span>
+                <span className="text-[16px] text-[#111318]">{t}</span>
               </div>
+            ))}
+          </div>
+          <h3 className="mt-[16px] px-[4px] text-[17px] font-[650] leading-[19px] tracking-[-0.34px] text-[#111318]">
+            Build a campaign brief in minutes
+          </h3>
+        </article>
+
+        {/* 03 */}
+        <article className="flex flex-col rounded-[24px] bg-white p-[18px_18px_22px] shadow-[0_22px_58px_-44px_rgba(56,96,128,0.38)]">
+          <span className="grid h-[24px] w-[31px] place-items-center self-start rounded-full border border-[#8fbbd1] bg-[#f4fbfe] text-[10px] font-extrabold tracking-[0.8px] text-[#54778a]">
+            03
+          </span>
+          <div className="mt-[18px] space-y-[6px] rounded-[20px] border border-[#e9f3f8] bg-[#f6fbfd] p-[16px]">
+            {[
+              ["Raphael", "Draft ready"],
+              ["Thomas", "Scheduled"],
+              ["Nada", "Live"],
+            ].map(([n, s]) => (
+              <div key={n} className="flex items-center justify-between px-[4px] py-[3px]">
+                <span className="text-[11.5px] font-bold text-[#17181c]">{n}</span>
+                <span className="rounded-[6px] bg-[#dceffa] px-[7px] py-[4px] text-[9.5px] font-bold text-[#315b7c]">
+                  {s}
+                </span>
+              </div>
+            ))}
+          </div>
+          <h3 className="mt-[16px] px-[4px] text-[17px] font-[650] leading-[19px] tracking-[-0.34px] text-[#111318]">
+            Manage every collaboration
+          </h3>
+        </article>
+
+        {/* 04 */}
+        <article className="flex flex-col rounded-[24px] bg-white p-[18px_18px_22px] shadow-[0_22px_58px_-44px_rgba(56,96,128,0.38)]">
+          <div className="flex items-center justify-between self-stretch">
+            <span className="grid w-[31px] place-items-center rounded-full border border-[#8fbbd1] bg-[#f4fbfe] text-[10px] font-extrabold tracking-[0.8px] text-[#54778a]">
+              04
+            </span>
+            <span className="rounded-[6px] bg-[#dceffa] px-[7px] py-[5px] text-[10px] font-bold text-[#315b7c]">
+              +24%
+            </span>
+          </div>
+          <div className="mt-[18px] flex flex-col rounded-[20px] border border-[#e9f3f8] bg-[#f6fbfd] p-[16px]">
+            <div className="flex items-end gap-[4px] px-[4px]">
+              {[7, 16, 10, 22, 28].map((h, i) => (
+                <span
+                  key={i}
+                  style={{ height: `${h}px` }}
+                  className={`w-[5px] rounded-[3px] ${i >= 3 ? "bg-[#315b7c]" : "bg-[#dceffa]"}`}
+                />
+              ))}
+              <span className="mb-[-16px] ml-[8px] text-[10px] text-[#8a8c92]">124K views</span>
+              <span className="ml-[6px] text-[10px] text-[#8a8c92]">418 leads</span>
             </div>
           </div>
+          <h3 className="mt-[16px] px-[4px] text-[17px] font-[650] leading-[19px] tracking-[-0.34px] text-[#111318]">
+            Track reach, clicks, and leads
+          </h3>
+        </article>
 
-          {/* 05 */}
-          <div className="card p-7">
+        {/* 05 */}
+        <article className="flex flex-col rounded-[24px] bg-white p-[18px_18px_22px] shadow-[0_22px_58px_-44px_rgba(56,96,128,0.38)]">
+          <span className="grid h-[24px] w-[31px] place-items-center self-start rounded-full border border-[#8fbbd1] bg-[#f4fbfe] text-[10px] font-extrabold tracking-[0.8px] text-[#54778a]">
+            05
+          </span>
+          <div className="mt-[18px] rounded-[20px] border border-[#e9f3f8] bg-[#f6fbfd] p-[16px]">
             <div className="flex items-center justify-between">
-              <span className="font-display text-sm font-semibold text-muted">05</span>
-              <span className="chip">Pay creators without the admin</span>
-            </div>
-            <h3 className="mt-6 font-display text-xl font-semibold text-ink">
-              Automated payouts
-            </h3>
-            <p className="mt-2 text-sm text-muted">
-              Approve content and pay every creator in one click, securely via
-              Stripe Connect.
-            </p>
-            <div className="mt-6 rounded-2xl border border-line bg-canvas p-4">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center gap-[8px]">
+                <span className="grid size-[23px] place-items-center rounded-full bg-[#dceffa] text-[10px] text-[#315b7c]">
+                  €
+                </span>
                 <div>
-                  <p className="text-xs text-muted">Payment scheduled</p>
-                  <p className="text-sm font-medium text-ink">Creator payout · €1,240</p>
+                  <p className="text-[9.5px] text-[#8a8c92]">Payment scheduled</p>
+                  <p className="text-[12px] font-bold text-[#111318]">Creator payout · €1,240</p>
                 </div>
-                <span className="chip text-emerald-700">Handled by Naano</span>
               </div>
-              <div className="mt-3 flex gap-2 text-xs">
-                {["Contract", "Invoice", "Payout"].map((t) => (
-                  <span key={t} className="rounded-full border border-line bg-white px-2.5 py-1 text-muted">
-                    {t}
-                  </span>
-                ))}
-              </div>
+              <span className="rounded-[6px] bg-[#e0f4eb] px-[7px] py-[4px] text-[8.5px] font-bold text-[#2a7a54]">
+                Handled by Naano
+              </span>
+            </div>
+            <div className="mt-[12px] flex gap-[6px]">
+              {["Contract", "Invoice", "Payout"].map((t) => (
+                <span
+                  key={t}
+                  className="rounded-[6px] bg-[#f4f2ee] px-[7px] py-[5px] text-[9.5px] text-[#8a8c92]"
+                >
+                  {t}
+                </span>
+              ))}
             </div>
           </div>
-
-          {/* pull section */}
-          <div className="relative overflow-hidden rounded-3xl bg-night p-7 text-white">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
-              style={{ background: "radial-gradient(60% 60% at 80% 10%, rgba(22,82,240,0.35) 0%, transparent 60%)" }}
-            />
-            <div className="relative">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
-                Creator first
-              </p>
-              <h3 className="mt-4 text-balance font-display text-2xl font-bold leading-tight">
-                Built for both sides of the marketplace.
-              </h3>
-              <p className="mt-3 text-sm text-white/60">
-                Creators set their price, review briefs, publish and get paid
-                within 24 hours. Companies run the whole operation from one
-                dashboard.
-              </p>
-            </div>
-          </div>
-        </div>
+          <h3 className="mt-[16px] px-[4px] text-[17px] font-[650] leading-[19px] tracking-[-0.34px] text-[#111318]">
+            Pay creators without the admin
+          </h3>
+        </article>
       </div>
     </section>
   );

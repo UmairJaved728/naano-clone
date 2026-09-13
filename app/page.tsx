@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <main className="relative">
       <div className="bg-noise" aria-hidden />
-      <Nav links="home" />
+      <Nav links="home" skin="lp" />
       <Hero />
       <Testimonial />
       <Marketplace />
